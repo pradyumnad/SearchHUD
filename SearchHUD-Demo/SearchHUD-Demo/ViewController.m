@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SearchHUD.h"
 
 @interface ViewController ()
 
@@ -18,6 +19,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    SearchHUD *searchHUD = [[SearchHUD alloc] initWithSearchList:[NSArray arrayWithObjects:@"a", @"aaa", @"n", @"ban", @"nam", @"dan", @"don", nil] andDelegate:self];
+    [self.view addSubview:searchHUD];
 }
 
 - (void)didReceiveMemoryWarning
