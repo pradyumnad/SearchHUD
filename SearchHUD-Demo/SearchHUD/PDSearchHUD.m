@@ -6,16 +6,16 @@
 //  Copyright (c) 2012 Pradyumna Doddala. All rights reserved.
 //
 
-#import "SearchHUD.h"
+#import "PDSearchHUD.h"
 
-@interface SearchHUD ()
+@interface PDSearchHUD ()
 
 @property (nonatomic, strong) NSArray *revisedList;
 
 - (IBAction)tappedOnClose:(id)sender;
 @end
 
-@implementation SearchHUD
+@implementation PDSearchHUD
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -28,19 +28,28 @@
 
 - (id)initWithSearchList:(NSArray *)list andDelegate:(id)aDelegate {
     CGRect frame = [[UIScreen mainScreen] bounds];
-//    self = [super initWithFrame:frame];
-    self = [[[NSBundle mainBundle] loadNibNamed:@"SearchHUD" owner:self options:nil] lastObject];
+    self = [[[NSBundle mainBundle] loadNibNamed:@"PDSearchHUD" owner:self options:nil] lastObject];
     [self setFrame:frame];
     if (self) {
         // Initialization code
         _delegate = aDelegate;
         _searchList = list;
         _revisedList = list;
+        _searchType = PDSearchTypeContains;
     }
     return self;
 }
 
-/*
+- (void)layoutSubviews {
+    self.alpha = 0.0f;
+    [UIView animateWithDuration:0.30 animations:^{
+        self.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+
+    }];
+    [super layoutSubviews];
+}
+/*git
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -87,6 +96,10 @@
     } else {
         NSLog(@"Sorry didSelectItem: not implemented");
     }
+    
+    if (_dismissWhenRowSelected) {
+        [self tappedOnClose:nil];
+    }
 }
 
 #pragma mark -
@@ -96,7 +109,19 @@
     if ([searchText length] == 0) {
         _revisedList = self.searchList;
     } else {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF beginsWith[cd] %@", searchText];
+        
+        NSPredicate *predicate;
+        switch (self.searchType) {
+            case PDSearchTypeContains:
+                predicate = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@", searchText];
+                break;
+            case PDSearchTypeBeginsWith:
+                predicate = [NSPredicate predicateWithFormat:@"SELF beginsWith[cd] %@", searchText];
+                break;
+            default:
+                break;
+        }
+        
         _revisedList = [self.searchList filteredArrayUsingPredicate:predicate];
     }
     
@@ -110,6 +135,10 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     _revisedList = self.searchList;
     [self.tableView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
 }
 
 #pragma mark -

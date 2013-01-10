@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PDSearchHUD.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <PDSearchHUDDelegate>
+
+@property (weak, nonatomic) IBOutlet UILabel *countryLabel;
+- (IBAction)showList:(id)sender;
 
 @end
