@@ -39,7 +39,19 @@ Options in PDSearchHUD
 
 Requirements
 ------------
-PDSearchHUD requires either iOS 5.0 and above.
+PDSearchHUD requires either iOS 7.0 and above.
+
+Example
+-------
+
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+## Installation
+
+You can copy the PDSearchHUD.{h,m,xib} files or use the Pod
+
+`pod "SearchHUD"`
+ 
 
 Contact
 -------
