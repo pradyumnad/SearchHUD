@@ -1,0 +1,12 @@
+source 'https://bitbucket.org/calviumltd/calviumpodspec.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'SearchHUD', :exclusive => true do
+  pod "SearchHUD", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "SearchHUD", :path => "../"
+
+  
+end
