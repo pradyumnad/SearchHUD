@@ -62,7 +62,8 @@
     PDSearchHUD *searchHUD = [[PDSearchHUD alloc] initWithSearchList:self.items andDelegate:self];
     [searchHUD setDismissWhenRowSelected:YES];
     [searchHUD setSearchType:PDSearchTypeContains];
-    searchHUD.searchBar.text = @"India";
+    //Uncomment the following line to pre fill the search bar with some text, like the last selection
+    //searchHUD.searchBar.text = @"India";
     [searchHUD addToSuperView:self.view];
 }
 
