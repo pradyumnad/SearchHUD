@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Pradyumna Doddala. All rights reserved.
 //
 
+#import <SearchHUD/PDSearchHUD.h>
 #import "PDSearchHUD.h"
 #import "View+MASAdditions.h"
 
@@ -76,20 +77,20 @@
     }
 }
 
-- (void)addToSuperView:(UIView *)superview {
-//    self.alpha = 0.0f;
+- (void)addToSuperView:(UIView *)superview withInsets:(UIEdgeInsets)insets {
     [superview addSubview:self];
-    [self addMasonryConstraints];
-//    self.alpha = 1.0f;
+    [self.searchBar setShowsCancelButton:YES animated:YES];
+    [self.searchBar becomeFirstResponder];
+    [self addMasonryConstraintsWithInsets:insets];
 }
 
-- (void)addMasonryConstraints {
+- (void)addMasonryConstraintsWithInsets:(UIEdgeInsets)insets {
     NSInteger searchBarHeight = 44;
     [self mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.right.left.equalTo(@0);
     }];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self).insets(UIEdgeInsetsMake(20+searchBarHeight, 20, 20, 20));
+        make.edges.equalTo(self).insets(UIEdgeInsetsMake(insets.top + searchBarHeight, insets.left, insets.bottom, insets.right));
     }];
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.tableView);
@@ -208,7 +209,8 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     _revisedList = self.searchList;
     [searchBar resignFirstResponder];
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
+    [self tappedOnClose:self];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {

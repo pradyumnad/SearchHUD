@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class PDSearchHUD;
+
 typedef enum {
     PDSearchTypeBeginsWith,
     PDSearchTypeContains
 } PDSearchType;
+
+//Use a 20 point insets for each side plus 20 on the top for the statusbar
+#define PDSEARCHHUD_DEFAULT_INSETS UIEdgeInsetsMake(20,20,20,20)
 
 @protocol PDSearchHUDDelegate <NSObject>
 
@@ -59,5 +64,5 @@ typedef enum {
 * @brief call this method instead of addSubview in the superview to add the PDSearchHUD with the proper constraints to the superView
 * @param superview the view to hold the PDSearchHUD
 */
-- (void)addToSuperView:(UIView *)superview;
+- (void)addToSuperView:(UIView *)superview withInsets:(UIEdgeInsets)insets;
 @end
