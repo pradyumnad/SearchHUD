@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class PDSearchHUD;
-
 typedef enum {
     PDSearchTypeBeginsWith,
     PDSearchTypeContains
