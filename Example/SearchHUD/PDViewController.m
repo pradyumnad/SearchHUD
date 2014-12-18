@@ -64,7 +64,7 @@
     [searchHUD setSearchType:PDSearchTypeContains];
     //Uncomment the following line to pre fill the search bar with some text, like the last selection
     //searchHUD.searchBar.text = @"India";
-    [searchHUD addToSuperView:self.view];
+    [searchHUD addToSuperView:self.view withInsets:PDSEARCHHUD_DEFAULT_INSETS];
 }
 
 #pragma mark -
